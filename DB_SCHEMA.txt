@@ -1,0 +1,48 @@
+CREATE SCHEMA IB;
+------------------------------------------------------------------------------------------
+
+create sequence users_uniqueid_seq START 1;
+
+create table ib.users(
+        uniqueid bigint not null default nextval('users_uniqueid_seq') PRIMARY KEY,
+        email varchar(75),
+        password varchar(200),
+        username varchar(20)
+);
+
+insert into ib.users(email,password,username) values ('admin@ib.com','$2a$10$VcdzH8Q.o4KEo6df.XesdOmXdXQwT5ugNQvu1Pl0390rmfOeA1bhS','admin');
+
+#(password = 12345678)
+------------------------------------------------------------------------------------------
+
+create sequence roles_id_seq START 1;
+
+create table ib.roles(
+        id int not null default nextval('roles_id_seq') PRIMARY KEY,
+        name varchar(20)
+);
+
+INSERT INTO ib.roles(name) VALUES('ROLE_USER');
+INSERT INTO ib.roles(name) VALUES('ROLE_MODERATOR');
+INSERT INTO ib.roles(name) VALUES('ROLE_ADMIN');
+
+------------------------------------------------------------------------------------------
+
+create table ib.user_roles(
+        user_uniqueid bigint not null,
+        role_id int not null,
+        primary key(user_uniqueid,role_id)
+);
+insert into ib.user_roles (user_uniqueid,role_id) values (1,3);
+------------------------------------------------------------------------------------------
+
+create sequence refresh_tokens_id_seq START 1;
+
+create table ib.refresh_tokens(
+        id bigint not null default nextval('refresh_tokens_id_seq') PRIMARY KEY,
+        uniqueid bigint,
+        token varchar(500) not null,
+        expiryDate TIMESTAMP WITH TIME ZONE not null
+);
+
+------------------------------------------------------------------------------------------

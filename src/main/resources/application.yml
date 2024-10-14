@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: authmanager
+
+server:
+  port: 1001
+  servlet:
+    context-path: /authmanager
+
+database:
+  username: postgres
+  password: admin@123
+  driverClassName: org.postgresql.Driver
+  jdbcUrl: jdbc:postgresql://localhost:5432/postgres
+  maxActive: 5
+  minIdle: 5
+  poolName: authmanager Postgres Datasource
+
+app:
+  jwtSecret: ======================ib=Spring===========================
+  jwtExpirationMs: 3600000
+  jwtRefreshExpirationMs: 86400000
